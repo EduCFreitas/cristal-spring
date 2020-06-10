@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -20,6 +21,7 @@ public class Compra {
 	private long id;
 	
 	@NotNull
+	@Min(0)
 	private double valor;
 	
 	

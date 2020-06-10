@@ -16,11 +16,9 @@ import javax.persistence.TemporalType;
 public class UsuarioCompra {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idUsuario;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idCompra;	
 }
 */
