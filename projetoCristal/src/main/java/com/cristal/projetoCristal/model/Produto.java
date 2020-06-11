@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,6 +32,7 @@ public class Produto {
 	
 	@Column(name = "vlProduto")
 	@NotNull
+	@Digits(integer=3,fraction=2)
 	@Min(0)
 	private double valor;
 	

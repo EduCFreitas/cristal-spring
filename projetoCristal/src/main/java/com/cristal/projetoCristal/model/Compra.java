@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -24,6 +25,7 @@ public class Compra {
 	
 	@Column(name = "vlCompra")
 	@NotNull
+	@Digits(integer=5,fraction=2)
 	@Min(0)
 	private double valor;
 	
