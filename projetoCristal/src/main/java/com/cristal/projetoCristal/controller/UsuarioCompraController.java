@@ -1,4 +1,4 @@
-/*package com.cristal.projetoCristal.controller;
+package com.cristal.projetoCristal.controller;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import com.cristal.projetoCristal.model.UsuarioCompra;
 import com.cristal.projetoCristal.repository.UsuarioCompraRepository;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/usuarios-compras")
 @CrossOrigin("*")
 public class UsuarioCompraController {
 	@Autowired
@@ -56,4 +56,4 @@ public class UsuarioCompraController {
 	
 	
 }
-*/
+
