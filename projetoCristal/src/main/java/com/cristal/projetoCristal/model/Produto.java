@@ -1,5 +1,6 @@
 package com.cristal.projetoCristal.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,39 +13,47 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "TB_PRODUTO")
 public class Produto {
-
+	
+	@Column(name = "cdProduto")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@Column(name = "nmCategoria")
 	@NotNull
 	@Size (min = 3, max = 20)
 	private String categoria;
 	
-	
+	@Column(name = "qtEstoque")
 	@NotNull
 	@Min(0)
 	private int qtdEstoque;
 	
+	@Column(name = "vlProduto")
 	@NotNull
 	@Min(0)
 	private double valor;
 	
+	@Column(name = "nmCor")
 	@NotNull
 	@Size (min = 3, max = 20)
 	private String cor;
 	
+	@Column(name = "nmTamanho")
 	@NotNull
 	@Size (min = 1, max = 20)
 	private String tamanho;
 	
+	@Column(name = "dsProduto")
 	@Size (min = 3, max = 200)
 	private String descricao;
 	
+	@Column(name = "nmProduto")
 	@NotNull 
 	@Size (min = 3, max = 40)
 	private String nome;
-
+	
+	@Column(name = "cdFoto")
 	@NotNull
 	private String foto;
 	

@@ -2,6 +2,7 @@ package com.cristal.projetoCristal.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,45 +16,61 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "TB_USUARIO")
 public class Usuario {
+	@Column(name = "cdUsuario")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@Column(name = "cdCpf", unique = true)
 	@NotNull
 	@Size(min = 11, max = 11)
 	private String cpf;
 	
+	@Column(name = "nmUsuario")
 	@NotNull
 	@Size(min = 3, max = 80)
 	private String nome;
 	
+	@Column(name = "nmEmail")
 	@NotNull
 	@Size(min = 5, max = 120)
 	private String email;
 	
+	@Column(name = "cdTelefone")
 	@Size(min = 10, max = 11)
 	private String telefone;
 	
+	@Column(name = "cdSenha")
 	@NotNull
 	@Size(min = 8, max = 50)
 	private String senha;
 	
+	@Column(name = "nmLogradouro")
 	@NotNull
 	@Size(min = 3, max = 150)
 	private String logradouro;
 	
+	@Column(name = "cdResidencia")
+	@NotNull
+	@Size(min = 1, max = 10)
+	private String numResidencia;
+	
+	@Column(name = "nmEstado")
 	@NotNull
 	@Size(min = 4, max = 20)
 	private String estado;
 	
+	@Column(name = "nmCidade")
 	@NotNull
 	@Size(min = 2, max = 50)
 	private String cidade;
 	
+	@Column(name = "nmBairro")
 	@NotNull
 	@Size(min = 3, max = 50)
 	private String bairro;
 	
+	@Column(name = "cdCep")
 	@NotNull
 	@Size(min = 8, max = 8)
 	private String cep;
@@ -115,6 +132,14 @@ public class Usuario {
 
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
+	}
+
+	public String getNumResidencia() {
+		return numResidencia;
+	}
+
+	public void setNumResidencia(String numResidencia) {
+		this.numResidencia = numResidencia;
 	}
 
 	public String getEstado() {
