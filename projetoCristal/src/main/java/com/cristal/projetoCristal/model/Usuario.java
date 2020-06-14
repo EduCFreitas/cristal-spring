@@ -57,7 +57,7 @@ public class Usuario {
 	
 	@Column(name = "nmEstado")
 	@NotNull
-	@Size(min = 4, max = 20)
+	@Size(min = 2, max = 20)
 	private String estado;
 	
 	@Column(name = "nmCidade")
