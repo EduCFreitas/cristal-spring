@@ -43,7 +43,7 @@ public class CarrinhoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(carrinho));
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping
 	public ResponseEntity<Carrinho> put (@RequestBody Carrinho carrinho) {
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(carrinho));
 	}

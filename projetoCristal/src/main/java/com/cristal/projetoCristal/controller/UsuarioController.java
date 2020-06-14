@@ -52,7 +52,7 @@ public class UsuarioController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping
 	public ResponseEntity<Usuario> put (@RequestBody Usuario usuario) {
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(usuario));
 	}

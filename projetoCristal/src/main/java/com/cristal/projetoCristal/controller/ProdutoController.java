@@ -62,7 +62,7 @@ public class ProdutoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(produto));
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping
 	public ResponseEntity<Produto> put (@RequestBody Produto produto) {
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(produto));
 	}
