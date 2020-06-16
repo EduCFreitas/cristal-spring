@@ -31,10 +31,10 @@ public class Usuario {
 	@Size(min = 3, max = 80)
 	private String nome;
 	
-	@Column(name = "sgUsuario")
+	@Column(name = "nmUsername")
 	@NotNull
 	@Size(min = 3, max = 80)
-	private String usuario;
+	private String username;
 	
 	@Column(name = "nmEmail")
 	@NotNull
@@ -107,13 +107,7 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
+	
 
 	public String getEmail() {
 		return email;
