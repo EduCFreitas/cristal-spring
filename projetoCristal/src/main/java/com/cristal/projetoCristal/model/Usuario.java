@@ -31,6 +31,11 @@ public class Usuario {
 	@Size(min = 3, max = 80)
 	private String nome;
 	
+	@Column(name = "sgUsuario")
+	@NotNull
+	@Size(min = 3, max = 80)
+	private String usuario;
+	
 	@Column(name = "nmEmail")
 	@NotNull
 	@Size(min = 5, max = 120)
@@ -100,6 +105,14 @@ public class Usuario {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getEmail() {
