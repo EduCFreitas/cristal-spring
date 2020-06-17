@@ -54,14 +54,11 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/username/{username}")
-	public ResponseEntity<List<Usuario>> GetByUsername(@PathVariable String username){
-		return ResponseEntity.ok(repository.findAllByUsernameContainingIgnoreCase(username));
+	public ResponseEntity<List<Usuario>> GetByUsername(@PathVariable String usuario){
+		return ResponseEntity.ok(repository.findAllByUsuarioContainingIgnoreCase(usuario));
 	}
 	
-//	@PostMapping
-//	public ResponseEntity<Usuario> post(@RequestBody Usuario usuario){
-//		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
-//	}
+
 	
 	@PostMapping("/logar")
 	public ResponseEntity<UserLogin> Authentication(@RequestBody Optional<UserLogin> user){

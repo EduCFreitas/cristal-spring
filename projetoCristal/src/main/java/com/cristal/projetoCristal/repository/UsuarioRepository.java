@@ -11,6 +11,6 @@ import com.cristal.projetoCristal.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	public List<Usuario> findAllByNomeContainingIgnoreCase(String nome);
 	public List<Usuario> findAllByCpfContainingIgnoreCase(String cpf);
-	public List<Usuario> findAllByUsernameContainingIgnoreCase(String username);
-	public Optional<Usuario> findByUsername(String username);
+	public List<Usuario> findAllByUsuarioContainingIgnoreCase(String usuario);
+	public Optional<Usuario> findByUsuario(String usuario);
 }
