@@ -1,6 +1,7 @@
 package com.cristal.projetoCristal.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,15 +16,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cristal.projetoCristal.model.UserLogin;
 import com.cristal.projetoCristal.model.Usuario;
 import com.cristal.projetoCristal.repository.UsuarioRepository;
+import com.cristal.projetoCristal.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin("*")
+@CrossOrigin(origins="*", allowedHeaders="*")
 public class UsuarioController {
 	@Autowired
 	private UsuarioRepository repository;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@GetMapping
 	public ResponseEntity<List<Usuario>> GetAll(){
@@ -52,9 +58,21 @@ public class UsuarioController {
 		return ResponseEntity.ok(repository.findAllByUsernameContainingIgnoreCase(username));
 	}
 	
-	@PostMapping
-	public ResponseEntity<Usuario> post(@RequestBody Usuario usuario){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
+//	@PostMapping
+//	public ResponseEntity<Usuario> post(@RequestBody Usuario usuario){
+//		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
+//	}
+	
+	@PostMapping("/logar")
+	public ResponseEntity<UserLogin> Authentication(@RequestBody Optional<UserLogin> user){
+		return usuarioService.Logar(user).map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+	}
+	
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Usuario> Post(@RequestBody Usuario usuario){
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(usuarioService.CadastrarUsuario(usuario));
 	}
 	
 	@PutMapping
