@@ -14,16 +14,29 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.cristal.projetoCristal.model.Compra;
+import com.cristal.projetoCristal.model.Usuario;
 import com.cristal.projetoCristal.model.UsuarioCompra;
+import com.cristal.projetoCristal.repository.CompraRepository;
 import com.cristal.projetoCristal.repository.UsuarioCompraRepository;
+import com.cristal.projetoCristal.repository.UsuarioRepository;
+import com.cristal.projetoCristal.rest.DTO.UsuarioCompraDTO;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/usuarios-compras")
 @CrossOrigin("*")
+@RequiredArgsConstructor
 public class UsuarioCompraController {
-	@Autowired
-	private UsuarioCompraRepository repository;
+//	@Autowired
+//	private UsuarioCompraRepository repository;
+	
+	private final UsuarioRepository usuarioRepository;
+	private final CompraRepository compraRepository;
+	private final UsuarioCompraRepository repository;
 	
 	@GetMapping
 	public ResponseEntity<List<UsuarioCompra>> GetAll(){
@@ -37,9 +50,27 @@ public class UsuarioCompraController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
+//	@PostMapping
+//	public ResponseEntity<UsuarioCompra> post(@RequestBody UsuarioCompra usuario){
+//		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
+//	}
+	
 	@PostMapping
-	public ResponseEntity<UsuarioCompra> post(@RequestBody UsuarioCompra usuario){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
+	public UsuarioCompra salvar(@RequestBody UsuarioCompraDTO dto) {
+		Long cdUsuario = dto.getCdUsuario();
+		Long cdCompra = dto.getCdCompra();
+		
+		Usuario usuario = usuarioRepository.findById(cdUsuario)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário inexistente."));
+		Compra compra = compraRepository.findById(cdCompra)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Compra inexistente."));
+		
+		UsuarioCompra usuarioCompra = new UsuarioCompra();
+		usuarioCompra.setUsuario(usuario);
+		usuarioCompra.setCompra(compra);
+		usuarioCompra.setId(dto.getId());
+		
+		return repository.save(usuarioCompra);
 	}
 	
 	@PutMapping

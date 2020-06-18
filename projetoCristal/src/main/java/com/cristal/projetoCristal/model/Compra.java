@@ -14,14 +14,17 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "TB_COMPRA")
+@Data
 public class Compra {
 	
 	@Column(name = "cdCompra")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Column(name = "vlCompra")
 	@NotNull
@@ -34,35 +37,4 @@ public class Compra {
 	private Date data = new java.sql.Date(System.currentTimeMillis());
 
 
-	public long getId() {
-		return id;
-	}
-
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-
-	public double getValor() {
-		return valor;
-	}
-
-
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
-
-
-	public Date getData() {
-		return data;
-	}
-
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-	
-	
-	
 }

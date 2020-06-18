@@ -14,17 +14,30 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.cristal.projetoCristal.model.Carrinho;
+import com.cristal.projetoCristal.model.Compra;
+import com.cristal.projetoCristal.model.Produto;
 import com.cristal.projetoCristal.repository.CarrinhoRepository;
+import com.cristal.projetoCristal.repository.CompraRepository;
+import com.cristal.projetoCristal.repository.ProdutoRepository;
+import com.cristal.projetoCristal.rest.DTO.CarrinhoDTO;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/carrinhos")
+@RequestMapping("/carrinho")
 @CrossOrigin("*")
+@RequiredArgsConstructor
 public class CarrinhoController {
 	
-	@Autowired
-	private CarrinhoRepository repository;
+//	@Autowired
+//	private CarrinhoRepository repository;
+	
+	private final CompraRepository compraRepository;
+	private final ProdutoRepository produtoRepository;
+	private final CarrinhoRepository repository;
 	
 	@GetMapping
 	public ResponseEntity<List<Carrinho>> GetAll(){
@@ -38,9 +51,28 @@ public class CarrinhoController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
+//	@PostMapping
+//	public ResponseEntity<Carrinho> post(@RequestBody Carrinho carrinho){
+//		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(carrinho));
+//	}
+	
 	@PostMapping
-	public ResponseEntity<Carrinho> post(@RequestBody Carrinho carrinho){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(carrinho));
+	public Carrinho salvar(@RequestBody CarrinhoDTO dto) {
+		Long cdCompra = dto.getCdCompra();
+		Long cdProduto = dto.getCdProduto();
+		
+		Compra compra = compraRepository.findById(cdCompra)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Compra inexistente."));
+		Produto produto = produtoRepository.findById(cdProduto)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Produto inexistente."));
+		
+		Carrinho carrinho = new Carrinho();
+		carrinho.setCompra(compra);
+		carrinho.setProduto(produto);
+		carrinho.setId(dto.getId());
+		carrinho.setData(dto.getData());
+		
+		return repository.save(carrinho);
 	}
 	
 	@PutMapping
