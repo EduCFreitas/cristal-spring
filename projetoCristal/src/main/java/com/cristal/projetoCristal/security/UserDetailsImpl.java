@@ -10,16 +10,40 @@ import com.cristal.projetoCristal.model.Usuario;
 public class UserDetailsImpl implements UserDetails{
 
 	private static final long serialVersionUID = 1L;
+	private long id;
+	private String nome;
+	private String email;
+	private String senha;
+	private boolean isAccountNonExpired;
+	private boolean isCredentialsNonExpired;
+	private boolean isAccountNonLocked;
+	private boolean isEnabled;
 	
-	private String userName;
-	private String password;
-	
-	public UserDetailsImpl(Usuario user) {
-		this.userName = user.getUsuario();
-		this.password = user.getSenha();
+	// Construtor
+	public UserDetailsImpl(Usuario usuario) {
+		this.id = usuario.getId();
+		this.nome = usuario.getNome();
+		this.email = usuario.getEmail();
+		this.senha = usuario.getSenha();
+		this.isAccountNonExpired=true;
+		this.isCredentialsNonExpired=true;
+		this.isEnabled=true;
+		this.isAccountNonLocked=true;
 	}
 	
-	public UserDetailsImpl() {}
+	
+	public long getId() {
+		return id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+	
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -28,31 +52,31 @@ public class UserDetailsImpl implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		return password;
+		return senha;
 	}
 
 	@Override
 	public String getUsername() {
-		return userName;
+		return email;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return true;
+		return isAccountNonExpired;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+		return isAccountNonLocked;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return true;
+		return isCredentialsNonExpired;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return isEnabled;
 	}
 }

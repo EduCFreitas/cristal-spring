@@ -13,12 +13,19 @@ import com.cristal.projetoCristal.repository.UsuarioRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	@Autowired
-	private UsuarioRepository userRepository;
+	private UsuarioRepository usuarioRepository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException{
-		Optional<Usuario> user = userRepository.findByUsuario(userName);
-		user.orElseThrow(() -> new UsernameNotFoundException(userName + " not found."));
-		return user.map(UserDetailsImpl::new).get();
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+		// Instancia Usuario busscando por email no BD
+		Optional<Usuario> usuario = usuarioRepository.findByEmail(username);
+		
+		// Se não há correspondência, informa que o usuário é inválido
+		if(usuario.isPresent()==false)
+			throw new UsernameNotFoundException("Usuário inválido!");
+		
+		// Caso haja correspondencia, instancia detalhes do usuário
+		UserDetailsImpl userDetailsImp = new UserDetailsImpl(usuario.get());
+		return userDetailsImp; 
 	}
 }

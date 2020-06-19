@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cristal.projetoCristal.model.UserLogin;
+import com.cristal.projetoCristal.model.UsuarioLogin;
 import com.cristal.projetoCristal.model.Usuario;
+import com.cristal.projetoCristal.model.UsuarioLogado;
 import com.cristal.projetoCristal.repository.UsuarioRepository;
 import com.cristal.projetoCristal.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin(origins="*", allowedHeaders="*")
+@CrossOrigin("*")
 public class UsuarioController {
 	@Autowired
 	private UsuarioRepository repository;
@@ -53,28 +54,30 @@ public class UsuarioController {
 		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
 	}
 	
-	@GetMapping("/username/{username}")
-	public ResponseEntity<List<Usuario>> GetByUsername(@PathVariable String usuario){
-		return ResponseEntity.ok(repository.findAllByUsuarioContainingIgnoreCase(usuario));
+	@GetMapping("/email/{email}")
+	public ResponseEntity<List<Usuario>> GetByEmail(@PathVariable String email){
+		return ResponseEntity.ok(repository.findAllByEmailContainingIgnoreCase(email));
 	}
 	
-
-	
-	@PostMapping("/logar")
-	public ResponseEntity<UserLogin> Authentication(@RequestBody Optional<UserLogin> user){
-		return usuarioService.Logar(user).map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
-	}
-	
-	@PostMapping("/cadastrar")
+	// Cadastrar novos usuários
+	@PostMapping
 	public ResponseEntity<Usuario> Post(@RequestBody Usuario usuario){
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(usuarioService.CadastrarUsuario(usuario));
+		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.CadastrarUsuario(usuario));
+	}
+		
+	@PostMapping("/login")
+	public ResponseEntity<Object> Logar(@RequestBody UsuarioLogin usuarioLogin){
+		Optional<UsuarioLogado> usuarioLogado = usuarioService.Logar(usuarioLogin);
+		// Se o login do usuário for confirmado pelo UsuarioService, informa-se um ok e usuarioLogado recebe os dados
+		if(usuarioLogado.isPresent())
+			return ResponseEntity.ok(usuarioLogado.get());
+		// Caso contrário, o acesso é negado
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Acesso não autorizado!");
 	}
 	
 	@PutMapping
 	public ResponseEntity<Usuario> put (@RequestBody Usuario usuario) {
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(usuario));
+		return ResponseEntity.status(HttpStatus.OK).body(usuarioService.CadastrarUsuario(usuario));
 	}
 	
 	@DeleteMapping("/{id}")

@@ -1,45 +1,58 @@
 package com.cristal.projetoCristal.service;
 
 import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.Optional;
 
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.cristal.projetoCristal.model.UserLogin;
+import com.cristal.projetoCristal.model.UsuarioLogin;
 import com.cristal.projetoCristal.model.Usuario;
+import com.cristal.projetoCristal.model.UsuarioLogado;
 import com.cristal.projetoCristal.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
 	@Autowired
-	private UsuarioRepository repository;
+	private UsuarioRepository usuarioRepository;
 	
 	public Usuario CadastrarUsuario(Usuario usuario) {
+		// Instancia a encriptação
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		
+		// senhaEncoder recebe a senha do usuário encriptada
 		String senhaEncoder = encoder.encode(usuario.getSenha());
+		// Senha do usuário recebe sua versão encriptada, vinda de senhaEncoder
 		usuario.setSenha(senhaEncoder);
-		return repository.save(usuario);
+		// Salva alteração no BD
+		return usuarioRepository.save(usuario);
 	}
 	
-	public Optional<UserLogin> Logar(Optional<UserLogin> user){
+	public Optional<UsuarioLogado> Logar(UsuarioLogin usuarioLogin){
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		Optional<Usuario> usuario = repository.findByUsuario(user.get().getUsuario());
+		// Busca no BD por usuário com email igual ao informado no login
+		Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioLogin.getEmail());
 		
-		if(usuario.isPresent()) {
-			if(encoder.matches(user.get().getSenha(), usuario.get().getSenha())) {
-				String auth = user.get().getUsuario()+":"+user.get().getSenha();
-				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-				String authHeader = "Basic "+new String(encodedAuth);
-				
-				user.get().setToken(authHeader);
-				user.get().setNome(usuario.get().getNome());
-				
-				return user;
-			}
-		}
-		return null;
+		// Se não encontra correspondência, retorna o Optional vazio
+		if(usuario.isPresent()==false)
+			return Optional.empty();
+		// Se encontra correspondência de email, mas as senhas não correspondem, retorna o Optional vazio
+		if(encoder.matches(usuarioLogin.getSenha(), usuario.get().getSenha())==false)
+			return Optional.empty();
+		
+		// Criação do token
+		String auth = usuarioLogin.getEmail()+":"+usuarioLogin.getSenha();
+		String encoding = Base64.getEncoder().encodeToString((auth).getBytes());
+		String authHeader = "Basic "+encoding;
+		
+		// Instanciamento do UsuarioLogado
+		UsuarioLogado usuarioLogado = new UsuarioLogado();
+		usuarioLogado.setId(usuario.get().getId());
+		usuarioLogado.setNome(usuario.get().getNome());
+		usuarioLogado.setEmail(usuario.get().getEmail());
+		usuarioLogado.setToken(authHeader);
+		
+		// Se tudo ok, retorna o Optional com o UsuarioLogado criado
+		return Optional.ofNullable(usuarioLogado);
 	}
 }

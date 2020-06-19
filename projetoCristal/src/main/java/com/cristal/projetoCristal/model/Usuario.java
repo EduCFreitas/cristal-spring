@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -29,18 +30,14 @@ public class Usuario {
 	@Size(min = 11, max = 11)
 	private String cpf;
 	
-	@Column(name = "nmUsuario", unique = true)
+	@Column(name = "nmUsuario")
 	@NotNull
 	@Size(min = 3, max = 80)
 	private String nome;
 	
-	@Column(name = "nmUsername")
-	@NotNull
-	@Size(min = 3, max = 80)
-	private String usuario;
-	
 	@Column(name = "nmEmail")
 	@NotNull
+	@Email
 	@Size(min = 5, max = 120)
 	private String email;
 	
