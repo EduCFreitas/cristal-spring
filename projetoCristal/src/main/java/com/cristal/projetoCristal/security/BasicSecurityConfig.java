@@ -33,6 +33,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter{
 		// URI's liberadas mesmo que o usuário não esteja logado
 		.antMatchers(HttpMethod.POST, "/usuarios").permitAll()
 		.antMatchers(HttpMethod.POST, "/usuarios/login").permitAll()
+		.antMatchers(HttpMethod.POST, "/contatos").permitAll()
 		.antMatchers(HttpMethod.GET, "/produto").permitAll()
 		.antMatchers(HttpMethod.GET, "/produto/{id}").permitAll()
 		.antMatchers(HttpMethod.GET, "/produto/categoria/{categoria}").permitAll()
