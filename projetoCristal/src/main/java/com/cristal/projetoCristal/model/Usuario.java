@@ -26,7 +26,6 @@ public class Usuario {
 	private long id;
 	
 	@Column(name = "cdCpf", unique = true)
-	@NotNull
 	@Size(min = 11, max = 11)
 	private String cpf;
 	
@@ -35,7 +34,7 @@ public class Usuario {
 	@Size(min = 3, max = 80)
 	private String nome;
 	
-	@Column(name = "nmEmail")
+	@Column(name = "nmEmail", unique = true)
 	@NotNull
 	@Email
 	@Size(min = 5, max = 120)
@@ -49,33 +48,11 @@ public class Usuario {
 	@NotNull
 	private String senha;
 	
-	@Column(name = "nmLogradouro")
-	@NotNull
+	@Column(name = "nmEndereco")
 	@Size(min = 3, max = 150)
-	private String logradouro;
-	
-	@Column(name = "cdResidencia")
-	@NotNull
-	@Size(min = 1, max = 10)
-	private String numResidencia;
-	
-	@Column(name = "nmEstado")
-	@NotNull
-	@Size(min = 2, max = 20)
-	private String estado;
-	
-	@Column(name = "nmCidade")
-	@NotNull
-	@Size(min = 2, max = 50)
-	private String cidade;
-	
-	@Column(name = "nmBairro")
-	@NotNull
-	@Size(min = 3, max = 50)
-	private String bairro;
+	private String endereco;
 	
 	@Column(name = "cdCep")
-	@NotNull
 	@Size(min = 8, max = 8)
 	private String cep;
 	

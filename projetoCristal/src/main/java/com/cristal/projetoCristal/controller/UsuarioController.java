@@ -64,7 +64,8 @@ public class UsuarioController {
 	public ResponseEntity<Usuario> Post(@RequestBody Usuario usuario){
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.CadastrarUsuario(usuario));
 	}
-		
+	
+	// Login no site
 	@PostMapping("/login")
 	public ResponseEntity<Object> Logar(@RequestBody UsuarioLogin usuarioLogin){
 		Optional<UsuarioLogado> usuarioLogado = usuarioService.Logar(usuarioLogin);
