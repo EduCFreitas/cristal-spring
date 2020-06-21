@@ -26,6 +26,7 @@ public class Usuario {
 	private long id;
 	
 	@Column(name = "cdCpf", unique = true)
+	@NotNull
 	@Size(min = 11, max = 11)
 	private String cpf;
 	
