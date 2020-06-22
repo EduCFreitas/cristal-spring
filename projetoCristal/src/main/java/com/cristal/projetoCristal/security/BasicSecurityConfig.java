@@ -39,12 +39,24 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.GET, "/produto/categoria/{categoria}").permitAll()
 		.antMatchers(HttpMethod.GET, "/produto/nome/{nome}").permitAll()
 		.antMatchers(HttpMethod.GET, "/produto/cor/{cor}").permitAll()
-		.antMatchers(HttpMethod.GET, "/produto//tamanho/{tamanho}").permitAll()
+		.antMatchers(HttpMethod.GET, "/produto/tamanho/{tamanho}").permitAll()
+		// URI's que necessitam de autenticação de login
+		.antMatchers(HttpMethod.GET, "/usuarios").permitAll()
+		.antMatchers(HttpMethod.GET, "/usuarios/{id}").permitAll()
+		.antMatchers(HttpMethod.PUT, "/usuarios").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/usuarios/{id}").permitAll()
+		.antMatchers(HttpMethod.POST, "/produto").permitAll()
+		.antMatchers(HttpMethod.PUT, "/produto").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/produto/{id}").permitAll()
+		.antMatchers(HttpMethod.GET, "/contatos").permitAll()
+		.antMatchers(HttpMethod.GET, "/contatos/{id}").permitAll()
+		.antMatchers(HttpMethod.PUT, "/contatos").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/contatos/{id}").permitAll()
 		.anyRequest().authenticated()
+		.and().httpBasic()
 		.and().cors()
 		.and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and()
-		.csrf().disable();
+		.and().csrf().disable();
 	}
 }
