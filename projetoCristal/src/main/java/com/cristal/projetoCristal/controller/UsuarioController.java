@@ -24,7 +24,7 @@ import com.cristal.projetoCristal.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin("*")
+@CrossOrigin(origins="*", allowedHeaders="*")
 public class UsuarioController {
 	@Autowired
 	private UsuarioRepository repository;

@@ -14,6 +14,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import lombok.Data;
 
 @Entity
@@ -27,6 +29,7 @@ public class Usuario {
 	
 	@Column(name = "cdCpf", unique = true)
 	@NotNull
+	@CPF
 	@Size(min = 11, max = 11)
 	private String cpf;
 	

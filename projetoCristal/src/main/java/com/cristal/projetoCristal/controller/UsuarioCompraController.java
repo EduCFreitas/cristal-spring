@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/usuarios-compras")
-@CrossOrigin("*")
+@CrossOrigin(origins="*", allowedHeaders="*")
 @RequiredArgsConstructor
 public class UsuarioCompraController {
 //	@Autowired

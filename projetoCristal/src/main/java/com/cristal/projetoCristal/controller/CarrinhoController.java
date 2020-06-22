@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/carrinho")
-@CrossOrigin("*")
+@CrossOrigin(origins="*", allowedHeaders="*")
 @RequiredArgsConstructor
 public class CarrinhoController {
 	

@@ -20,7 +20,7 @@ import com.cristal.projetoCristal.repository.ContatoRepository;
 
 @RestController
 @RequestMapping("/contatos")
-@CrossOrigin("*")
+@CrossOrigin(origins="*", allowedHeaders="*")
 public class ContatoController {
 	@Autowired
 	private ContatoRepository repository;

@@ -20,7 +20,7 @@ import com.cristal.projetoCristal.repository.CompraRepository;
 
 @RestController
 @RequestMapping("/compras")
-@CrossOrigin("*")
+@CrossOrigin(origins="*", allowedHeaders="*")
 public class CompraController {
 	@Autowired
 	private CompraRepository repository;
