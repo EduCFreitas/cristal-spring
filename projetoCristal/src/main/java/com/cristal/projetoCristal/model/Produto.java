@@ -60,6 +60,7 @@ public class Produto {
 	
 	@Column(name = "cdFoto")
 	@NotNull
+	@Size (min = 1, max = 255)
 	private String foto;
 	
 }
