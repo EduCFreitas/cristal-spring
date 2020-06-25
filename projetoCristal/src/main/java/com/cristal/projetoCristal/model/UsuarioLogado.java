@@ -6,6 +6,8 @@ public class UsuarioLogado {
 	private long id;
 	private String nome;
 	private String email;
+	private String cpf;
+	private String tipo;
 	
 	public String getToken() {
 		return token;
@@ -31,6 +33,19 @@ public class UsuarioLogado {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
 	
 	
 }

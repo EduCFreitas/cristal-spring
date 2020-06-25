@@ -14,6 +14,8 @@ public class UserDetailsImpl implements UserDetails{
 	private String nome;
 	private String email;
 	private String senha;
+	private String cpf;
+	private String tipo;
 	private boolean isAccountNonExpired;
 	private boolean isCredentialsNonExpired;
 	private boolean isAccountNonLocked;
@@ -25,6 +27,8 @@ public class UserDetailsImpl implements UserDetails{
 		this.nome = usuario.getNome();
 		this.email = usuario.getEmail();
 		this.senha = usuario.getSenha();
+		this.cpf = usuario.getCpf();
+		this.tipo = usuario.getTipo();
 		this.isAccountNonExpired=true;
 		this.isCredentialsNonExpired=true;
 		this.isEnabled=true;
@@ -43,7 +47,15 @@ public class UserDetailsImpl implements UserDetails{
 	public String getEmail() {
 		return email;
 	}
-	
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

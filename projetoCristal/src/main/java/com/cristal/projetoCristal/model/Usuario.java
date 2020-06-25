@@ -60,6 +60,10 @@ public class Usuario {
 	@Size(min = 8, max = 8)
 	private String cep;
 	
+	@Column(name = "dsUsuario")
+	private String tipo;
+	
+	@Column(name = "dtCadastro")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
 

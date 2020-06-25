@@ -50,6 +50,8 @@ public class UsuarioService {
 		usuarioLogado.setId(usuario.get().getId());
 		usuarioLogado.setNome(usuario.get().getNome());
 		usuarioLogado.setEmail(usuario.get().getEmail());
+		usuarioLogado.setCpf(usuario.get().getCpf());
+		usuarioLogado.setTipo(usuario.get().getTipo());
 		usuarioLogado.setToken(authHeader);
 		
 		// Se tudo ok, retorna o Optional com o UsuarioLogado criado
